@@ -1,0 +1,133 @@
+/* Timer page themes — scoped via [data-timer-theme] on the timer tab */
+
+[data-timer-theme][data-phase='focus'] {
+  --primary: var(--timer-focus);
+  --primary-foreground: var(--timer-focus-foreground);
+  --ring: var(--timer-focus);
+}
+
+[data-timer-theme][data-phase='break'] {
+  --primary: var(--timer-break);
+  --primary-foreground: var(--timer-break-foreground);
+  --ring: var(--timer-break);
+}
+
+/* Classic — default red / green on light */
+[data-timer-theme='classic'] {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.141 0.005 285.823);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.141 0.005 285.823);
+  --muted: oklch(0.967 0.001 286.375);
+  --muted-foreground: oklch(0.552 0.016 285.938);
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --accent: oklch(0.967 0.001 286.375);
+  --accent-foreground: oklch(0.21 0.006 285.885);
+  --border: oklch(0.92 0.004 286.32);
+  --input: oklch(0.92 0.004 286.32);
+  --timer-focus: oklch(0.637 0.237 25.331);
+  --timer-focus-foreground: oklch(0.971 0.013 17.38);
+  --timer-break: oklch(0.527 0.154 150.069);
+  --timer-break-foreground: oklch(0.982 0.018 155.826);
+}
+
+/* Midnight — dark */
+[data-timer-theme='midnight'] {
+  --background: oklch(0.16 0.01 285);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.2 0.012 285);
+  --card-foreground: oklch(0.98 0 0);
+  --muted: oklch(0.25 0.012 285);
+  --muted-foreground: oklch(0.7 0.015 286);
+  --secondary: oklch(0.25 0.012 285);
+  --secondary-foreground: oklch(0.98 0 0);
+  --accent: oklch(0.28 0.015 285);
+  --accent-foreground: oklch(0.98 0 0);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --timer-focus: oklch(0.712 0.194 12.5);
+  --timer-focus-foreground: oklch(0.971 0.013 17.38);
+  --timer-break: oklch(0.696 0.17 162.48);
+  --timer-break-foreground: oklch(0.982 0.018 155.826);
+}
+
+/* Ocean — cool light */
+[data-timer-theme='ocean'] {
+  --background: oklch(0.97 0.012 240);
+  --foreground: oklch(0.2 0.04 250);
+  --card: oklch(0.99 0.008 240);
+  --card-foreground: oklch(0.2 0.04 250);
+  --muted: oklch(0.93 0.02 240);
+  --muted-foreground: oklch(0.5 0.04 250);
+  --secondary: oklch(0.93 0.02 240);
+  --secondary-foreground: oklch(0.25 0.05 250);
+  --accent: oklch(0.9 0.03 240);
+  --accent-foreground: oklch(0.25 0.05 250);
+  --border: oklch(0.88 0.03 240);
+  --input: oklch(0.88 0.03 240);
+  --timer-focus: oklch(0.488 0.243 264.376);
+  --timer-focus-foreground: oklch(0.97 0.014 254.604);
+  --timer-break: oklch(0.52 0.105 223.128);
+  --timer-break-foreground: oklch(0.984 0.019 200.873);
+}
+
+/* Sunset — warm light */
+[data-timer-theme='sunset'] {
+  --background: oklch(0.98 0.02 85);
+  --foreground: oklch(0.25 0.06 45);
+  --card: oklch(0.99 0.015 85);
+  --card-foreground: oklch(0.25 0.06 45);
+  --muted: oklch(0.94 0.03 80);
+  --muted-foreground: oklch(0.5 0.05 50);
+  --secondary: oklch(0.94 0.03 80);
+  --secondary-foreground: oklch(0.3 0.06 45);
+  --accent: oklch(0.92 0.04 75);
+  --accent-foreground: oklch(0.3 0.06 45);
+  --border: oklch(0.9 0.04 75);
+  --input: oklch(0.9 0.04 75);
+  --timer-focus: oklch(0.646 0.222 41.116);
+  --timer-focus-foreground: oklch(0.98 0.016 73.684);
+  --timer-break: oklch(0.681 0.162 75.834);
+  --timer-break-foreground: oklch(0.987 0.026 102.212);
+}
+
+/* Forest — sage light */
+[data-timer-theme='forest'] {
+  --background: oklch(0.97 0.02 145);
+  --foreground: oklch(0.22 0.05 145);
+  --card: oklch(0.99 0.015 145);
+  --card-foreground: oklch(0.22 0.05 145);
+  --muted: oklch(0.93 0.025 145);
+  --muted-foreground: oklch(0.48 0.04 145);
+  --secondary: oklch(0.93 0.025 145);
+  --secondary-foreground: oklch(0.28 0.06 145);
+  --accent: oklch(0.9 0.03 140);
+  --accent-foreground: oklch(0.28 0.06 145);
+  --border: oklch(0.88 0.035 145);
+  --input: oklch(0.88 0.035 145);
+  --timer-focus: oklch(0.448 0.119 151.328);
+  --timer-focus-foreground: oklch(0.982 0.018 155.826);
+  --timer-break: oklch(0.648 0.2 131.684);
+  --timer-break-foreground: oklch(0.986 0.031 120.757);
+}
+
+/* Lavender — soft purple light */
+[data-timer-theme='lavender'] {
+  --background: oklch(0.98 0.015 300);
+  --foreground: oklch(0.22 0.05 300);
+  --card: oklch(0.99 0.01 300);
+  --card-foreground: oklch(0.22 0.05 300);
+  --muted: oklch(0.94 0.025 300);
+  --muted-foreground: oklch(0.5 0.04 300);
+  --secondary: oklch(0.94 0.025 300);
+  --secondary-foreground: oklch(0.28 0.06 300);
+  --accent: oklch(0.92 0.03 300);
+  --accent-foreground: oklch(0.28 0.06 300);
+  --border: oklch(0.9 0.03 300);
+  --input: oklch(0.9 0.03 300);
+  --timer-focus: oklch(0.541 0.281 293.009);
+  --timer-focus-foreground: oklch(0.969 0.016 293.756);
+  --timer-break: oklch(0.627 0.265 303.9);
+  --timer-break-foreground: oklch(0.977 0.014 308.299);
+}
