@@ -1,5 +1,10 @@
+import {
+  migrateLegacySettings,
+  normalizeDisplayTheme,
+  normalizeThemeConfig,
+} from '@/lib/themes/theme-config';
+
 import { DEFAULT_SETTINGS } from './constants';
-import { normalizeTimerTheme } from './timer-themes';
 import type { Phase, PomodoroSettings } from './types';
 
 const MIN_MINUTES = 1;
@@ -22,12 +27,14 @@ export function phaseDurationMs(
 }
 
 export function validateSettings(
-  input: Partial<PomodoroSettings>,
+  input: Partial<PomodoroSettings> | Record<string, unknown>,
 ): PomodoroSettings | null {
-  const focusMinutes = Number(input.focusMinutes);
-  const shortBreakMinutes = Number(input.shortBreakMinutes);
-  const longBreakMinutes = Number(input.longBreakMinutes);
-  const sessionsUntilLongBreak = Number(input.sessionsUntilLongBreak);
+  const raw = input as Record<string, unknown>;
+  const migrated = { ...migrateLegacySettings(raw), ...raw };
+  const focusMinutes = Number(migrated.focusMinutes);
+  const shortBreakMinutes = Number(migrated.shortBreakMinutes);
+  const longBreakMinutes = Number(migrated.longBreakMinutes);
+  const sessionsUntilLongBreak = Number(migrated.sessionsUntilLongBreak);
 
   if (
     !Number.isFinite(focusMinutes) ||
@@ -51,18 +58,32 @@ export function validateSettings(
     return null;
   }
 
+  const displayTheme = normalizeDisplayTheme(migrated.displayTheme);
+  const themeConfig = normalizeThemeConfig(
+    displayTheme,
+    migrated.themeConfig,
+  );
+
   return {
     focusMinutes: Math.round(focusMinutes),
     shortBreakMinutes: Math.round(shortBreakMinutes),
     longBreakMinutes: Math.round(longBreakMinutes),
     sessionsUntilLongBreak: Math.round(sessionsUntilLongBreak),
-    timerTheme: normalizeTimerTheme(input.timerTheme),
+    displayTheme,
+    themeConfig,
   };
 }
 
 export function mergeSettings(
-  partial?: Partial<PomodoroSettings>,
+  partial?: Partial<PomodoroSettings> | Record<string, unknown>,
 ): PomodoroSettings {
-  const validated = partial ? validateSettings(partial) : null;
+  const base = partial
+    ? {
+        ...DEFAULT_SETTINGS,
+        ...migrateLegacySettings(partial as Record<string, unknown>),
+        ...partial,
+      }
+    : DEFAULT_SETTINGS;
+  const validated = validateSettings(base);
   return validated ?? { ...DEFAULT_SETTINGS };
 }

@@ -1,4 +1,4 @@
-export const TIMER_THEMES = [
+export const COLOR_PALETTES = [
   'classic',
   'midnight',
   'ocean',
@@ -7,65 +7,75 @@ export const TIMER_THEMES = [
   'lavender',
 ] as const;
 
-export type TimerTheme = (typeof TIMER_THEMES)[number];
+export type ColorPalette = (typeof COLOR_PALETTES)[number];
 
-export interface TimerThemeOption {
-  id: TimerTheme;
+/** @deprecated Use ColorPalette */
+export type TimerTheme = ColorPalette;
+
+/** @deprecated Use COLOR_PALETTES */
+export const TIMER_THEMES = COLOR_PALETTES;
+
+export interface ColorPaletteOption {
+  id: ColorPalette;
   label: string;
   description: string;
-  /** Swatch for focus phase */
   previewFocus: string;
-  /** Swatch for break phase */
   previewBreak: string;
 }
 
-export const TIMER_THEME_OPTIONS: TimerThemeOption[] = [
+/** @deprecated Use ColorPaletteOption */
+export type TimerThemeOption = ColorPaletteOption;
+
+export const COLOR_PALETTE_OPTIONS: ColorPaletteOption[] = [
   {
     id: 'classic',
     label: 'Classic',
-    description: 'OG arena—crimson grinds, green recovery',
+    description: 'Red focus, green break',
     previewFocus: '#e11d48',
     previewBreak: '#008453',
   },
   {
     id: 'midnight',
     label: 'Midnight',
-    description: 'Night raid—rose grinds, mint cooldowns',
+    description: 'Rose focus, mint break',
     previewFocus: '#fb7185',
     previewBreak: '#34d399',
   },
   {
     id: 'ocean',
     label: 'Ocean',
-    description: 'Deep dive—azure grinds, tidal recovery',
+    description: 'Blue focus, teal break',
     previewFocus: '#2563eb',
     previewBreak: '#0891b2',
   },
   {
     id: 'sunset',
     label: 'Sunset',
-    description: 'Golden hour—ember grinds, amber rests',
+    description: 'Orange focus, amber break',
     previewFocus: '#ea580c',
     previewBreak: '#ca8a04',
   },
   {
     id: 'forest',
     label: 'Forest',
-    description: 'Wild path—moss grinds, leaf recovery',
+    description: 'Green focus, lime break',
     previewFocus: '#166534',
     previewBreak: '#65a30d',
   },
   {
     id: 'lavender',
     label: 'Lavender',
-    description: 'Arcane hall—violet grinds, lilac cooldowns',
+    description: 'Violet focus, purple break',
     previewFocus: '#7c3aed',
     previewBreak: '#a855f7',
   },
 ];
 
-const THEME_HEX: Record<
-  TimerTheme,
+/** @deprecated Use COLOR_PALETTE_OPTIONS */
+export const TIMER_THEME_OPTIONS = COLOR_PALETTE_OPTIONS;
+
+const PALETTE_HEX: Record<
+  ColorPalette,
   { focus: string; break: string; focusFg: string; breakFg: string }
 > = {
   classic: {
@@ -106,26 +116,41 @@ const THEME_HEX: Record<
   },
 };
 
-export function isTimerTheme(value: unknown): value is TimerTheme {
-  return typeof value === 'string' && TIMER_THEMES.includes(value as TimerTheme);
+export function isColorPalette(value: unknown): value is ColorPalette {
+  return (
+    typeof value === 'string' && COLOR_PALETTES.includes(value as ColorPalette)
+  );
 }
 
-export function normalizeTimerTheme(value: unknown): TimerTheme {
-  return isTimerTheme(value) ? value : 'classic';
+/** @deprecated Use isColorPalette */
+export const isTimerTheme = isColorPalette;
+
+export function normalizeColorPalette(value: unknown): ColorPalette {
+  return isColorPalette(value) ? value : 'classic';
 }
 
-export function getThemePhasePrimaryHex(
-  theme: TimerTheme,
+/** @deprecated Use normalizeColorPalette */
+export const normalizeTimerTheme = normalizeColorPalette;
+
+export function getPalettePhasePrimaryHex(
+  palette: ColorPalette,
   phase: 'focus' | 'break',
 ): string {
-  const colors = THEME_HEX[theme];
+  const colors = PALETTE_HEX[palette];
   return phase === 'break' ? colors.break : colors.focus;
 }
 
-export function getThemePhasePrimaryForegroundHex(
-  theme: TimerTheme,
+/** @deprecated Use getPalettePhasePrimaryHex */
+export const getThemePhasePrimaryHex = getPalettePhasePrimaryHex;
+
+export function getPalettePhasePrimaryForegroundHex(
+  palette: ColorPalette,
   phase: 'focus' | 'break',
 ): string {
-  const colors = THEME_HEX[theme];
+  const colors = PALETTE_HEX[palette];
   return phase === 'break' ? colors.breakFg : colors.focusFg;
 }
+
+/** @deprecated Use getPalettePhasePrimaryForegroundHex */
+export const getThemePhasePrimaryForegroundHex =
+  getPalettePhasePrimaryForegroundHex;

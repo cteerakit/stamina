@@ -1,19 +1,19 @@
-/* Timer page themes — scoped via [data-timer-theme] on the timer tab */
+/* Timer page themes — scoped via [data-color-palette] on the timer tab */
 
-[data-timer-theme][data-phase='focus'] {
+[data-color-palette][data-phase='focus'] {
   --primary: var(--timer-focus);
   --primary-foreground: var(--timer-focus-foreground);
   --ring: var(--timer-focus);
 }
 
-[data-timer-theme][data-phase='break'] {
+[data-color-palette][data-phase='break'] {
   --primary: var(--timer-break);
   --primary-foreground: var(--timer-break-foreground);
   --ring: var(--timer-break);
 }
 
 /* Classic — default red / green on light */
-[data-timer-theme='classic'] {
+[data-color-palette='classic'] {
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
@@ -33,7 +33,7 @@
 }
 
 /* Midnight — dark */
-[data-timer-theme='midnight'] {
+[data-color-palette='midnight'] {
   --background: oklch(0.16 0.01 285);
   --foreground: oklch(0.98 0 0);
   --card: oklch(0.2 0.012 285);
@@ -53,7 +53,7 @@
 }
 
 /* Ocean — cool light */
-[data-timer-theme='ocean'] {
+[data-color-palette='ocean'] {
   --background: oklch(0.97 0.012 240);
   --foreground: oklch(0.2 0.04 250);
   --card: oklch(0.99 0.008 240);
@@ -73,7 +73,7 @@
 }
 
 /* Sunset — warm light */
-[data-timer-theme='sunset'] {
+[data-color-palette='sunset'] {
   --background: oklch(0.98 0.02 85);
   --foreground: oklch(0.25 0.06 45);
   --card: oklch(0.99 0.015 85);
@@ -93,7 +93,7 @@
 }
 
 /* Forest — sage light */
-[data-timer-theme='forest'] {
+[data-color-palette='forest'] {
   --background: oklch(0.97 0.02 145);
   --foreground: oklch(0.22 0.05 145);
   --card: oklch(0.99 0.015 145);
@@ -113,7 +113,7 @@
 }
 
 /* Lavender — soft purple light */
-[data-timer-theme='lavender'] {
+[data-color-palette='lavender'] {
   --background: oklch(0.98 0.015 300);
   --foreground: oklch(0.22 0.05 300);
   --card: oklch(0.99 0.01 300);

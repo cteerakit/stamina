@@ -1,0 +1,132 @@
+.valorant-hud {
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  font-family:
+    'Arial Narrow',
+    'Helvetica Neue Condensed',
+    'Segoe UI',
+    system-ui,
+    sans-serif;
+  color: #fff;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.85));
+  user-select: none;
+}
+
+.valorant-hud__health {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 0 12px 6px 4px;
+  min-width: 118px;
+}
+
+.valorant-hud__armor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.valorant-hud__armor-value {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.valorant-hud__timer {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  min-width: 2.5ch;
+  text-align: left;
+}
+
+.valorant-hud__abilities {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  padding: 0 10px 4px;
+}
+
+.valorant-hud__ability {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.valorant-hud__ability-pedestal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 28px;
+  background: rgba(12, 16, 20, 0.55);
+  clip-path: polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%);
+}
+
+.valorant-hud__ability-key {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  opacity: 0.95;
+}
+
+.valorant-hud__ult-dots {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 2px;
+}
+
+.valorant-hud__ult-dot {
+  width: 6px;
+  height: 6px;
+  transform: rotate(45deg);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.valorant-hud__ult-dot--charged {
+  border-color: #7ee8ea;
+  background: #5ce1e6;
+  box-shadow: 0 0 4px rgba(92, 225, 230, 0.65);
+}
+
+.valorant-hud__ammo {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 0 4px 6px 12px;
+  min-width: 108px;
+}
+
+.valorant-hud__ammo-mag {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+.valorant-hud__ammo-reserve {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1;
+  opacity: 0.92;
+  padding-bottom: 6px;
+}
+
+.valorant-hud__frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.valorant-hud__section-wrap {
+  position: relative;
+}

@@ -1,25 +1,23 @@
+import { getPhaseColorForSettings } from '@/lib/themes/registry';
+
 import { isBreakPhase } from './phases';
-import {
-  getThemePhasePrimaryForegroundHex,
-  getThemePhasePrimaryHex,
-  normalizeTimerTheme,
-} from './timer-themes';
 import type { Phase, PomodoroSettings } from './types';
 
 export function getPhasePrimaryHex(
   phase: Phase,
-  settings?: Pick<PomodoroSettings, 'timerTheme'>,
+  settings?: Pick<PomodoroSettings, 'displayTheme' | 'themeConfig'>,
 ): string {
-  const theme = normalizeTimerTheme(settings?.timerTheme);
-  const phaseKey = isBreakPhase(phase) ? 'break' : 'focus';
-  return getThemePhasePrimaryHex(theme, phaseKey);
+  if (!settings) return '#e11d48';
+  return getPhaseColorForSettings(
+    phase,
+    settings.displayTheme,
+    settings.themeConfig,
+  );
 }
 
 export function getPhasePrimaryForegroundHex(
   phase: Phase,
-  settings?: Pick<PomodoroSettings, 'timerTheme'>,
+  settings?: Pick<PomodoroSettings, 'displayTheme' | 'themeConfig'>,
 ): string {
-  const theme = normalizeTimerTheme(settings?.timerTheme);
-  const phaseKey = isBreakPhase(phase) ? 'break' : 'focus';
-  return getThemePhasePrimaryForegroundHex(theme, phaseKey);
+  return getPhasePrimaryHex(phase, settings);
 }

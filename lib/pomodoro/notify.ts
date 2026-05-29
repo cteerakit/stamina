@@ -7,10 +7,10 @@ const NOTIFICATION_ICON_URL = browser.runtime.getURL('/icon/128.png');
 function notificationCopy(phase: Phase): { title: string; message: string } {
   switch (phase) {
     case 'focus':
-      return COPY.notifications.grindComplete;
+      return COPY.notifications.focusComplete;
     case 'shortBreak':
     case 'longBreak':
-      return COPY.notifications.recoveryComplete;
+      return COPY.notifications.breakComplete;
   }
 }
 

@@ -1,4 +1,4 @@
-import type { TimerTheme } from './timer-themes';
+import type { DisplayTheme, ThemeConfig } from '@/lib/themes/types';
 
 export type Phase = 'focus' | 'shortBreak' | 'longBreak';
 
@@ -9,7 +9,8 @@ export interface PomodoroSettings {
   shortBreakMinutes: number;
   longBreakMinutes: number;
   sessionsUntilLongBreak: number;
-  timerTheme: TimerTheme;
+  displayTheme: DisplayTheme;
+  themeConfig: ThemeConfig;
 }
 
 export interface PomodoroStats {

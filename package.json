@@ -1,6 +1,6 @@
 {
   "name": "stamina",
-  "description": "Stamina — gamified focus timer with grinds, cooldowns, and recovery",
+  "description": "A pomodoro timer with styles.",
   "private": true,
   "version": "1.0.0",
   "type": "module",

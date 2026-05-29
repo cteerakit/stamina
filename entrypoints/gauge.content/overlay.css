@@ -1,0 +1,89 @@
+/* Non-position host resets — layout comes from hostPin + data-display-theme rules */
+:host {
+  z-index: 2147483646 !important;
+  pointer-events: none !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  overflow: visible !important;
+}
+
+:host([data-display-theme='progressBar']) {
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+  transform: none !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: none !important;
+}
+
+:host(
+  [data-display-theme='progressBar']:not([data-progress-bar-position='bottom'])
+) {
+  top: 0 !important;
+  bottom: auto !important;
+}
+
+:host(
+  [data-display-theme='progressBar'][data-progress-bar-position='bottom']
+) {
+  top: auto !important;
+  bottom: 0 !important;
+}
+
+:host([data-display-theme='skyrim']),
+:host([data-display-theme='minecraft']),
+:host([data-display-theme='valorant']) {
+  position: fixed !important;
+  top: auto !important;
+  right: auto !important;
+  left: 50% !important;
+  bottom: 24px !important;
+  transform: translateX(-50%) !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: none !important;
+}
+
+:host([data-display-theme='overwatch']) {
+  position: fixed !important;
+  top: auto !important;
+  right: auto !important;
+  left: 24px !important;
+  bottom: 24px !important;
+  transform: none !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: none !important;
+}
+
+html,
+body {
+  background: transparent !important;
+  background-color: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+[data-gauge-overlay] {
+  background: transparent !important;
+  line-height: 0;
+  pointer-events: none !important;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+[data-gauge-overlay][data-faded] {
+  opacity: 0.12;
+}
+
+[data-display-theme='progressBar'][data-gauge-overlay] {
+  width: 100% !important;
+}

@@ -64,9 +64,14 @@
   --chart-5: oklch(0.769 0.188 70.08);
 }
 
-/* Timer tab inherits themed surface tokens from timer-themes.css */
-[data-timer-theme] {
+/* Popup arena inherits palette tokens from timer-themes.css */
+[data-color-palette]:not([data-gauge-overlay]) {
   background-color: var(--background);
+  color: var(--foreground);
+}
+
+[data-gauge-overlay] {
+  background-color: transparent !important;
   color: var(--foreground);
 }
 

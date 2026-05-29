@@ -10,5 +10,6 @@ export const DEFAULT_SETTINGS: PomodoroSettings = {
   shortBreakMinutes: 5,
   longBreakMinutes: 15,
   sessionsUntilLongBreak: 4,
-  timerTheme: 'classic',
+  displayTheme: 'progressBar',
+  themeConfig: { kind: 'progressBar', palette: 'classic', position: 'top' },
 };

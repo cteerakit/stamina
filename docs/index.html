@@ -126,8 +126,7 @@
       <h2>1. Who we are</h2>
       <p>
         Stamina is a personal Pomodoro-style focus timer. It helps you run timed
-        focus (“grind”) sessions and recovery (“cooldown” / “full recovery”)
-        breaks from the browser toolbar popup.
+        focus sessions and breaks from the browser toolbar popup.
       </p>
 
       <h2>2. Information we collect</h2>
@@ -150,10 +149,10 @@
       </p>
       <p>Locally stored data may include:</p>
       <ul>
-        <li>Current timer phase (grind, short cooldown, or full recovery)</li>
+        <li>Current timer phase (focus, short break, or long break)</li>
         <li>Timer status (idle, running, or paused) and time remaining</li>
-        <li>Your loadout settings (session lengths, cycle length, theme)</li>
-        <li>A count of completed grind sessions for the current calendar day</li>
+        <li>Your settings (session lengths, cycle length, theme)</li>
+        <li>A count of completed focus sessions for the current calendar day</li>
       </ul>
       <p>
         We do not have access to this data. Only you (and Chrome on your device)
@@ -162,7 +161,10 @@
 
       <h2>4. What we do not do</h2>
       <ul>
-        <li>We do not read or modify the content of web pages you visit.</li>
+        <li>
+          We do not read or modify the content of web pages you visit beyond
+          showing your chosen timer overlay (for example, a ring or top bar).
+        </li>
         <li>We do not track your browsing history or search activity.</li>
         <li>We do not use advertising or marketing trackers.</li>
         <li>We do not sell or rent personal information.</li>
@@ -176,7 +178,7 @@
       <ul>
         <li>
           <strong>storage</strong> — Save and restore your timer state and
-          loadout on your device.
+          settings on your device.
         </li>
         <li>
           <strong>alarms</strong> — Keep the timer accurate when the popup is
@@ -185,7 +187,7 @@
         </li>
         <li>
           <strong>notifications</strong> — Show a system notification when a
-          grind or recovery phase ends (for example, “Grind cleared!”).
+          focus or break phase ends.
         </li>
         <li>
           <strong>offscreen</strong> — Play a short completion sound when a phase
@@ -194,8 +196,9 @@
         </li>
       </ul>
       <p>
-        Stamina does not request broad host permissions (such as
-        <code>&lt;all_urls&gt;</code>) and does not inject scripts into websites.
+        Stamina may inject a small overlay on pages you visit to show your
+        selected display theme. It does not collect page text or browsing
+        history.
       </p>
 
       <h2>6. Third parties</h2>

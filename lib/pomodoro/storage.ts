@@ -42,7 +42,10 @@ export async function getPomodoroState(): Promise<PomodoroState> {
     return initial;
   }
 
-  const settings = mergeSettings(raw.settings);
+  const settings = mergeSettings(
+    raw.settings as Partial<import('./types').PomodoroSettings> &
+      Record<string, unknown>,
+  );
   const stats = normalizeStats(raw.stats ?? { date: todayDateString(), completedToday: 0 });
 
   const state: PomodoroState = {

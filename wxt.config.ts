@@ -8,8 +8,7 @@ export default defineConfig({
   }),
   manifest: {
     name: 'Stamina',
-    description:
-      'Level up your focus. Grind sessions, cooldowns, and stamina recovery in your browser.',
+    description: 'A pomodoro timer with styles.',
     permissions: ['storage', 'alarms', 'notifications', 'offscreen'],
     action: {
       default_title: 'Stamina',
