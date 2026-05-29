@@ -81,6 +81,19 @@ export const HOST_PIN_OVERWATCH: HostPinStyles = [
   ['max-width', 'none'],
 ];
 
+export const HOST_PIN_STARDEW_VALLEY: HostPinStyles = [
+  ...BASE_PIN,
+  ['position', 'fixed'],
+  ['top', 'auto'],
+  ['right', '24px'],
+  ['bottom', '24px'],
+  ['left', 'auto'],
+  ['transform', 'none'],
+  ['width', 'auto'],
+  ['height', 'auto'],
+  ['max-width', 'none'],
+];
+
 export function resolveHostPin(
   hostPin: HostPinStyles,
   getHostPin: ((config: ThemeConfig) => HostPinStyles) | undefined,

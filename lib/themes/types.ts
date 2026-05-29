@@ -9,6 +9,7 @@ export const DISPLAY_THEMES = [
   'minecraft',
   'valorant',
   'overwatch',
+  'stardewValley',
 ] as const;
 
 export type DisplayTheme = (typeof DISPLAY_THEMES)[number];
@@ -43,12 +44,17 @@ export type OverwatchThemeConfig = {
   label: string;
 };
 
+export type StardewValleyThemeConfig = {
+  kind: 'stardewValley';
+};
+
 export type ThemeConfig =
   | ProgressBarThemeConfig
   | SkyrimThemeConfig
   | MinecraftThemeConfig
   | ValorantThemeConfig
-  | OverwatchThemeConfig;
+  | OverwatchThemeConfig
+  | StardewValleyThemeConfig;
 
 export interface ThemeOverlayProps {
   state: PomodoroState;

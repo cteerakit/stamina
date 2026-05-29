@@ -5,6 +5,7 @@ import {
 import type { PomodoroSettings } from '@/lib/pomodoro/types';
 
 import { normalizeOverwatchLabel } from './overwatch-config';
+import { getStardewEnergyFillColors } from './stardew-energy-colors';
 import { getSkyrimBarColorOption, normalizeSkyrimBarColor } from './skyrim-colors';
 import type {
   DisplayTheme,
@@ -55,6 +56,8 @@ export function defaultThemeConfig(displayTheme: DisplayTheme): ThemeConfig {
       return { kind: 'valorant' };
     case 'overwatch':
       return { kind: 'overwatch', label: normalizeOverwatchLabel(undefined) };
+    case 'stardewValley':
+      return { kind: 'stardewValley' };
   }
 }
 
@@ -110,6 +113,9 @@ export function normalizeThemeConfig(
         ),
       };
     }
+    if (kind === 'stardewValley' && displayTheme === 'stardewValley') {
+      return { kind: 'stardewValley' };
+    }
   }
 
   switch (displayTheme) {
@@ -123,6 +129,8 @@ export function normalizeThemeConfig(
       return { kind: 'valorant' };
     case 'overwatch':
       return { kind: 'overwatch', label: normalizeOverwatchLabel(undefined) };
+    case 'stardewValley':
+      return { kind: 'stardewValley' };
   }
 }
 
@@ -156,6 +164,8 @@ export function themeConfigForDisplay(
       return { kind: 'valorant' };
     case 'overwatch':
       return { kind: 'overwatch', label: carriedOverwatchLabel };
+    case 'stardewValley':
+      return { kind: 'stardewValley' };
   }
 }
 
@@ -207,6 +217,10 @@ export function getPhaseColorFromConfig(
 
   if (config.kind === 'overwatch') {
     return '#5eb3ff';
+  }
+
+  if (config.kind === 'stardewValley') {
+    return getStardewEnergyFillColors(1).main;
   }
 
   return getPalettePhasePrimaryHex(config.palette, phaseKey);

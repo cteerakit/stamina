@@ -1,0 +1,58 @@
+.sdv-energy {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.sdv-energy__header {
+  box-sizing: border-box;
+  width: 36px;
+  height: 36px;
+  padding-top: 4px;
+  background: #5a3820;
+  border: 4px solid;
+  border-color: #e8c878 #2a1808 #2a1808 #e8c878;
+  color: #ffe84a;
+  font-family: ui-monospace, 'Courier New', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  text-shadow: 2px 2px 0 #2a1808;
+}
+
+.sdv-energy__frame {
+  box-sizing: border-box;
+  width: 36px;
+  padding: 5px;
+  background: #9c6b3c;
+  border: 4px solid;
+  border-color: #e8c878 #2a1808 #2a1808 #e8c878;
+  border-top: none;
+}
+
+.sdv-energy__track {
+  position: relative;
+  width: 100%;
+  height: 104px;
+  overflow: hidden;
+  background: #e8dcb0;
+  box-shadow: inset 0 0 0 2px #c9a96e;
+}
+
+.sdv-energy__fill {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--sdv-fill, #48e81a);
+  box-shadow:
+    inset 0 3px 0 var(--sdv-fill-hi, #7cff54),
+    inset 0 -3px 0 var(--sdv-fill-lo, #2eb810);
+  transition:
+    height 1s linear,
+    background-color 0.35s ease,
+    box-shadow 0.35s ease;
+}

@@ -11,6 +11,8 @@ import { ValorantOverlay } from '@/components/themes/valorant/valorant-overlay';
 import { ValorantSettings } from '@/components/themes/valorant/valorant-settings';
 import { SkyrimOverlay } from '@/components/themes/skyrim/skyrim-overlay';
 import { SkyrimSettings } from '@/components/themes/skyrim/skyrim-settings';
+import { StardewValleyOverlay } from '@/components/themes/stardew-valley/stardew-valley-overlay';
+import { StardewValleySettings } from '@/components/themes/stardew-valley/stardew-valley-settings';
 import type { Phase } from '@/lib/pomodoro/types';
 
 import { getPhaseColorFromConfig } from './theme-config';
@@ -20,6 +22,7 @@ import {
   HOST_PIN_PROGRESS_BAR_TOP,
   HOST_PIN_SKYRIM,
   HOST_PIN_OVERWATCH,
+  HOST_PIN_STARDEW_VALLEY,
   HOST_PIN_VALORANT,
 } from './host-pin';
 
@@ -70,6 +73,15 @@ const REGISTRY: Record<DisplayTheme, DisplayThemeDefinition> = {
     Overlay: OverwatchOverlay,
     SettingsPanel: OverwatchSettings,
     hostPin: HOST_PIN_OVERWATCH,
+    getPhaseColor: (phase, config) =>
+      getPhaseColorFromConfig(phase, config as ThemeConfig),
+  },
+  stardewValley: {
+    id: 'stardewValley',
+    label: 'Stardew Valley',
+    Overlay: StardewValleyOverlay,
+    SettingsPanel: StardewValleySettings,
+    hostPin: HOST_PIN_STARDEW_VALLEY,
     getPhaseColor: (phase, config) =>
       getPhaseColorFromConfig(phase, config as ThemeConfig),
   },
