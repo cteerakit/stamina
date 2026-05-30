@@ -48,7 +48,13 @@ export const COPY = {
     progressBarPositionBottom: 'Bottom',
     progressBarPositionHint: 'Place the progress bar at the top or bottom of the page.',
     skyrimBarColor: 'Bar type',
-    skyrimBarColorHint: 'Mana, Health, or Stamina with a Skyrim-style gradient.',
+    skyrimBarColorHint: 'Magicka, Health, or Stamina with a Skyrim-style gradient.',
+    skyrimFramePosition: 'Frame position',
+    skyrimFramePositionLeft: 'Left',
+    skyrimFramePositionMiddle: 'Middle',
+    skyrimFramePositionRight: 'Right',
+    skyrimFramePositionHint:
+      'Place the HUD bar at the bottom left, center, or right of the page.',
     overwatchLabel: 'HUD label',
     overwatchLabelHint:
       'Text under the bar (e.g. a hero name). Shown in all caps on the overlay.',

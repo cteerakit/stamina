@@ -1,43 +1,59 @@
+import { SkyrimBarFill } from '@/components/themes/skyrim/skyrim-bar';
+import { SkyrimFrame } from '@/components/themes/skyrim/skyrim-frame';
 import { ThemeOverlayShell } from '@/components/themes/theme-overlay-shell';
 import { COPY } from '@/lib/copy';
 import { isBreakPhase } from '@/lib/pomodoro/phases';
 import { getGaugeFraction, getGaugePercent } from '@/lib/themes/gauge-math';
-import {
-  getSkyrimBarColorOption,
-  type SkyrimBarColor,
-} from '@/lib/themes/skyrim-colors';
-import type { ThemeOverlayProps } from '@/lib/themes/types';
+import type { SkyrimFramePosition, ThemeOverlayProps } from '@/lib/themes/types';
 
-const BAR_WIDTH = 360;
-const BAR_HEIGHT = 26;
-const TRACK_X = 14;
-const TRACK_Y = 8;
-const TRACK_WIDTH = BAR_WIDTH - TRACK_X * 2;
-const TRACK_HEIGHT = 10;
-const BAR_CENTER_Y = BAR_HEIGHT / 2;
-const FRAME_RAIL_Y_TOP = TRACK_Y - 2;
-const FRAME_RAIL_Y_BOTTOM = TRACK_Y + TRACK_HEIGHT + 2;
-const CHEVRON_WING_OFFSET = 7;
-const FRAME_STROKE = '#c5c5c5';
+const BAR_WIDTH = 426;
+const BAR_HEIGHT = 33;
 
-function gradientId(color: SkyrimBarColor, layer: 'v' | 'h'): string {
-  return `skyrim-${color}-${layer}`;
+/** Inner cavity of assets/skyrim-frame.svg (top/bottom rails and straight section). */
+const FRAME_INNER = {
+  left: 25.1183,
+  right: 400.347,
+  top: 5.33633,
+  bottom: 26.778,
+} as const;
+
+const TRACK_WIDTH = 372;
+const TRACK_HEIGHT = 18;
+
+const FRAME_INNER_WIDTH = FRAME_INNER.right - FRAME_INNER.left;
+const FRAME_INNER_HEIGHT = FRAME_INNER.bottom - FRAME_INNER.top;
+
+/** Centered in the frame inner cavity (assets/skyrim-frame.svg). */
+const TRACK_X = FRAME_INNER.left + (FRAME_INNER_WIDTH - TRACK_WIDTH) / 2;
+const TRACK_Y = FRAME_INNER.top + (FRAME_INNER_HEIGHT - TRACK_HEIGHT) / 2;
+
+function getSkyrimFillX(
+  position: SkyrimFramePosition,
+  fillWidth: number,
+): number {
+  switch (position) {
+    case 'left':
+      return TRACK_X;
+    case 'right':
+      return TRACK_X + TRACK_WIDTH - fillWidth;
+    default:
+      return TRACK_X + (TRACK_WIDTH - fillWidth) / 2;
+  }
 }
 
 export function SkyrimOverlay({ state }: ThemeOverlayProps) {
   const gaugeFraction = getGaugeFraction(state);
   const gaugePercent = getGaugePercent(state);
   const isBreak = isBreakPhase(state.phase);
-  const barColor =
+  const skyrimConfig =
     state.settings.themeConfig.kind === 'skyrim'
-      ? state.settings.themeConfig.barColor
-      : 'health';
-  const colorOption = getSkyrimBarColorOption(barColor);
+      ? state.settings.themeConfig
+      : null;
+  const barColor = skyrimConfig?.barColor ?? 'health';
+  const framePosition = skyrimConfig?.position ?? 'middle';
 
   const fillWidth = TRACK_WIDTH * gaugeFraction;
-  const fillX = TRACK_X + (TRACK_WIDTH - fillWidth) / 2;
-  const verticalId = gradientId(barColor, 'v');
-  const horizontalId = gradientId(barColor, 'h');
+  const fillX = getSkyrimFillX(framePosition, fillWidth);
 
   return (
     <ThemeOverlayShell state={state} usePalette={false}>
@@ -56,90 +72,15 @@ export function SkyrimOverlay({ state }: ThemeOverlayProps) {
           viewBox={`0 0 ${BAR_WIDTH} ${BAR_HEIGHT}`}
           aria-hidden
         >
-          <defs>
-            <linearGradient id={verticalId} x1="0" y1="0" x2="0" y2="1">
-              {colorOption.verticalStops.map((stop) => (
-                <stop
-                  key={stop.offset}
-                  offset={stop.offset}
-                  stopColor={stop.color}
-                />
-              ))}
-            </linearGradient>
-            <linearGradient id={horizontalId} x1="0" y1="0" x2="1" y2="0">
-              {colorOption.horizontalStops.map((stop) => (
-                <stop
-                  key={stop.offset}
-                  offset={stop.offset}
-                  stopColor={stop.color}
-                  stopOpacity={stop.opacity ?? 1}
-                />
-              ))}
-            </linearGradient>
-          </defs>
+          <SkyrimFrame />
 
-          <polygon
-            points={`0,${BAR_CENTER_Y} 11,${BAR_CENTER_Y - CHEVRON_WING_OFFSET} 11,${TRACK_Y} 14,${TRACK_Y} 14,${TRACK_Y + TRACK_HEIGHT} 11,${TRACK_Y + TRACK_HEIGHT} 11,${BAR_CENTER_Y + CHEVRON_WING_OFFSET}`}
-            fill="none"
-            stroke={FRAME_STROKE}
-            strokeWidth="1"
-            strokeLinejoin="miter"
-          />
-          <polygon
-            points={`${BAR_WIDTH},${BAR_CENTER_Y} ${BAR_WIDTH - 11},${BAR_CENTER_Y - CHEVRON_WING_OFFSET} ${BAR_WIDTH - 11},${TRACK_Y} ${BAR_WIDTH - 14},${TRACK_Y} ${BAR_WIDTH - 14},${TRACK_Y + TRACK_HEIGHT} ${BAR_WIDTH - 11},${TRACK_Y + TRACK_HEIGHT} ${BAR_WIDTH - 11},${BAR_CENTER_Y + CHEVRON_WING_OFFSET}`}
-            fill="none"
-            stroke={FRAME_STROKE}
-            strokeWidth="1"
-            strokeLinejoin="miter"
-          />
-          <line
-            x1={14}
-            y1={FRAME_RAIL_Y_TOP}
-            x2={BAR_WIDTH - 14}
-            y2={FRAME_RAIL_Y_TOP}
-            stroke={FRAME_STROKE}
-            strokeWidth="1"
-          />
-          <line
-            x1={14}
-            y1={FRAME_RAIL_Y_BOTTOM}
-            x2={BAR_WIDTH - 14}
-            y2={FRAME_RAIL_Y_BOTTOM}
-            stroke={FRAME_STROKE}
-            strokeWidth="1"
-          />
-
-          <rect
-            x={TRACK_X}
+          <SkyrimBarFill
+            color={barColor}
+            x={fillX}
             y={TRACK_Y}
-            width={TRACK_WIDTH}
+            width={fillWidth}
             height={TRACK_HEIGHT}
-            fill="#121212"
           />
-
-          {fillWidth > 0 && (
-            <>
-              <rect
-                x={fillX}
-                y={TRACK_Y}
-                width={fillWidth}
-                height={TRACK_HEIGHT}
-                fill={`url(#${verticalId})`}
-                style={{ transition: 'x 1s linear, width 1s linear' }}
-              />
-              <rect
-                x={fillX}
-                y={TRACK_Y}
-                width={fillWidth}
-                height={TRACK_HEIGHT}
-                fill={`url(#${horizontalId})`}
-                style={{
-                  transition: 'x 1s linear, width 1s linear',
-                  mixBlendMode: 'screen',
-                }}
-              />
-            </>
-          )}
         </svg>
       </div>
     </ThemeOverlayShell>

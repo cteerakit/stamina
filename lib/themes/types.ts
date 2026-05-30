@@ -26,9 +26,14 @@ export type ProgressBarThemeConfig = {
 export type { SkyrimBarColor } from './skyrim-colors';
 export { SKYRIM_BAR_COLORS } from './skyrim-colors';
 
+export const SKYRIM_FRAME_POSITIONS = ['left', 'middle', 'right'] as const;
+
+export type SkyrimFramePosition = (typeof SKYRIM_FRAME_POSITIONS)[number];
+
 export type SkyrimThemeConfig = {
   kind: 'skyrim';
   barColor: import('./skyrim-colors').SkyrimBarColor;
+  position: SkyrimFramePosition;
 };
 
 export type MinecraftThemeConfig = {
@@ -55,6 +60,8 @@ export type ThemeConfig =
   | ValorantThemeConfig
   | OverwatchThemeConfig
   | StardewValleyThemeConfig;
+
+export type ThemeConfigByDisplay = Partial<Record<DisplayTheme, ThemeConfig>>;
 
 export interface ThemeOverlayProps {
   state: PomodoroState;

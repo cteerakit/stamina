@@ -143,13 +143,38 @@ function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="field-description"
       className={cn(
-        "text-sm leading-normal font-normal text-muted-foreground group-has-[[data-orientation=horizontal]]/field:text-balance",
+        "text-xs leading-snug font-normal text-muted-foreground group-has-[[data-orientation=horizontal]]/field:text-balance",
         "last:mt-0 nth-last-2:-mt-1 [[data-variant=legend]+&]:-mt-1.5",
         "[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
         className
       )}
       {...props}
     />
+  )
+}
+
+/** Label, optional hint, then control — hint sits under the heading. */
+function FieldSection({
+  label,
+  description,
+  htmlFor,
+  children,
+  className,
+}: {
+  label: React.ReactNode
+  description?: React.ReactNode
+  htmlFor?: string
+  children: React.ReactNode
+  className?: string
+}) {
+  return (
+    <Field className={cn("gap-2", className)}>
+      <FieldLabel htmlFor={htmlFor}>{label}</FieldLabel>
+      {description != null && description !== "" ? (
+        <FieldDescription>{description}</FieldDescription>
+      ) : null}
+      {children}
+    </Field>
   )
 }
 
@@ -241,6 +266,7 @@ export {
   FieldError,
   FieldGroup,
   FieldLegend,
+  FieldSection,
   FieldSeparator,
   FieldSet,
   FieldContent,

@@ -1,10 +1,5 @@
 import { ColorPalettePicker } from '@/components/color-palette-picker';
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-} from '@/components/ui/field';
+import { FieldGroup, FieldSection } from '@/components/ui/field';
 import { COPY } from '@/lib/copy';
 import { cn } from '@/lib/utils';
 import type { ColorPalette } from '@/lib/pomodoro/timer-themes';
@@ -26,8 +21,10 @@ export function ProgressBarSettings({
 
   return (
     <FieldGroup>
-      <Field>
-        <FieldLabel>{COPY.loadout.progressBarPosition}</FieldLabel>
+      <FieldSection
+        label={COPY.loadout.progressBarPosition}
+        description={COPY.loadout.progressBarPositionHint}
+      >
         <div className="grid grid-cols-2 gap-2">
           {(
             [
@@ -59,18 +56,16 @@ export function ProgressBarSettings({
             );
           })}
         </div>
-        <FieldDescription>
-          {COPY.loadout.progressBarPositionHint}
-        </FieldDescription>
-      </Field>
-      <Field>
-        <FieldLabel>{COPY.loadout.colorPalette}</FieldLabel>
+      </FieldSection>
+      <FieldSection
+        label={COPY.loadout.colorPalette}
+        description={COPY.loadout.colorPaletteHint}
+      >
         <ColorPalettePicker
           value={config.palette}
           onChange={(palette: ColorPalette) => update({ palette })}
         />
-        <FieldDescription>{COPY.loadout.colorPaletteHint}</FieldDescription>
-      </Field>
+      </FieldSection>
     </FieldGroup>
   );
 }

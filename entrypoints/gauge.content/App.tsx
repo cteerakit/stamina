@@ -13,6 +13,10 @@ export default function GaugeApp() {
     state?.settings.themeConfig.kind === 'progressBar'
       ? state.settings.themeConfig.position
       : null;
+  const skyrimFramePosition =
+    state?.settings.themeConfig.kind === 'skyrim'
+      ? state.settings.themeConfig.position
+      : null;
 
   const overlayVisible = state ? shouldShowPageOverlay(state) : false;
 
@@ -34,6 +38,12 @@ export default function GaugeApp() {
       delete host.dataset.progressBarPosition;
     }
 
+    if (skyrimFramePosition) {
+      host.dataset.skyrimFramePosition = skyrimFramePosition;
+    } else {
+      delete host.dataset.skyrimFramePosition;
+    }
+
     const def = getDisplayThemeDefinition(displayTheme);
     const themeConfig = state?.settings.themeConfig;
     const pin =
@@ -44,6 +54,7 @@ export default function GaugeApp() {
   }, [
     displayTheme,
     progressBarPosition,
+    skyrimFramePosition,
     state?.settings.themeConfig,
     overlayVisible,
   ]);

@@ -1,9 +1,4 @@
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-} from '@/components/ui/field';
+import { FieldGroup, FieldSection } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { COPY } from '@/lib/copy';
 import {
@@ -30,10 +25,11 @@ export function OverwatchSettings({
 
   return (
     <FieldGroup>
-      <Field>
-        <FieldLabel htmlFor="overwatch-label">
-          {COPY.loadout.overwatchLabel}
-        </FieldLabel>
+      <FieldSection
+        label={COPY.loadout.overwatchLabel}
+        description={COPY.loadout.overwatchLabelHint}
+        htmlFor="overwatch-label"
+      >
         <Input
           id="overwatch-label"
           type="text"
@@ -42,8 +38,7 @@ export function OverwatchSettings({
           placeholder={DEFAULT_OVERWATCH_LABEL}
           onChange={(e) => setLabel(e.target.value)}
         />
-        <FieldDescription>{COPY.loadout.overwatchLabelHint}</FieldDescription>
-      </Field>
+      </FieldSection>
     </FieldGroup>
   );
 }

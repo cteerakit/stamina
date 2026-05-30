@@ -18,6 +18,7 @@ import type { Phase } from '@/lib/pomodoro/types';
 import { getPhaseColorFromConfig } from './theme-config';
 import {
   getProgressBarHostPin,
+  getSkyrimHostPin,
   HOST_PIN_MINECRAFT,
   HOST_PIN_PROGRESS_BAR_TOP,
   HOST_PIN_SKYRIM,
@@ -46,6 +47,10 @@ const REGISTRY: Record<DisplayTheme, DisplayThemeDefinition> = {
     Overlay: SkyrimOverlay,
     SettingsPanel: SkyrimSettings,
     hostPin: HOST_PIN_SKYRIM,
+    getHostPin: (config) =>
+      config.kind === 'skyrim'
+        ? getSkyrimHostPin(config.position)
+        : HOST_PIN_SKYRIM,
     getPhaseColor: (phase, config) =>
       getPhaseColorFromConfig(phase, config as ThemeConfig),
   },

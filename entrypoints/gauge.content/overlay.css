@@ -38,7 +38,34 @@
   bottom: 0 !important;
 }
 
-:host([data-display-theme='skyrim']),
+:host([data-display-theme='skyrim']) {
+  position: fixed !important;
+  top: auto !important;
+  bottom: 24px !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: none !important;
+}
+
+:host([data-display-theme='skyrim'][data-skyrim-frame-position='left']) {
+  left: 24px !important;
+  right: auto !important;
+  transform: none !important;
+}
+
+:host([data-display-theme='skyrim'][data-skyrim-frame-position='right']) {
+  left: auto !important;
+  right: 24px !important;
+  transform: none !important;
+}
+
+:host([data-display-theme='skyrim'][data-skyrim-frame-position='middle']),
+:host([data-display-theme='skyrim']:not([data-skyrim-frame-position])) {
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+}
+
 :host([data-display-theme='minecraft']),
 :host([data-display-theme='valorant']) {
   position: fixed !important;
@@ -96,7 +123,11 @@ body {
   transition: opacity 0.2s ease;
 }
 
-[data-gauge-overlay][data-faded] {
+[data-gauge-overlay][data-paused] {
+  opacity: 0.5;
+}
+
+[data-gauge-overlay][data-faded]:not([data-paused]) {
   opacity: 0.12;
 }
 

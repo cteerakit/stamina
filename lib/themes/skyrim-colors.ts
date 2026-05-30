@@ -2,10 +2,9 @@ export const SKYRIM_BAR_COLORS = ['mana', 'health', 'stamina'] as const;
 
 export type SkyrimBarColor = (typeof SKYRIM_BAR_COLORS)[number];
 
-export interface SkyrimGradientStop {
+export interface SkyrimHighlightStop {
   offset: string;
-  color: string;
-  opacity?: number;
+  opacity: number;
 }
 
 export interface SkyrimBarColorOption {
@@ -15,66 +14,52 @@ export interface SkyrimBarColorOption {
   preview: string;
   /** Toolbar badge color */
   badgeHex: string;
-  /** Vertical cylindrical highlight */
-  verticalStops: SkyrimGradientStop[];
-  /** Horizontal center glow overlay */
-  horizontalStops: SkyrimGradientStop[];
+  /** Source asset (radial + linear gloss) */
+  asset: string;
+  /** Horizontal center glow */
+  radialCenter: string;
+  radialEdge: string;
+  /** Vertical gloss strength; defaults to shared stops + 0.5 opacity */
+  glossOpacity?: number;
+  highlightStops?: SkyrimHighlightStop[];
 }
+
+/** Vertical gloss — shared by assets/skyrim-bar-*.svg linear layers */
+export const SKYRIM_BAR_HIGHLIGHT_STOPS: SkyrimHighlightStop[] = [
+  { offset: '0', opacity: 0 },
+  { offset: '0.15', opacity: 0.1 },
+  { offset: '0.4', opacity: 0.5 },
+  { offset: '0.5', opacity: 1 },
+  { offset: '0.6', opacity: 0 },
+];
 
 export const SKYRIM_BAR_COLOR_OPTIONS: SkyrimBarColorOption[] = [
   {
     id: 'mana',
-    label: 'Mana',
-    preview: '#4a9fd4',
-    badgeHex: '#2a7ab8',
-    verticalStops: [
-      { offset: '0%', color: '#0f2840' },
-      { offset: '28%', color: '#2a6a9a' },
-      { offset: '50%', color: '#6eb8e8' },
-      { offset: '72%', color: '#2a6a9a' },
-      { offset: '100%', color: '#0f2840' },
-    ],
-    horizontalStops: [
-      { offset: '0%', color: '#050f1a', opacity: 0.55 },
-      { offset: '50%', color: '#ffffff', opacity: 0.22 },
-      { offset: '100%', color: '#050f1a', opacity: 0.55 },
-    ],
+    label: 'Magicka',
+    preview: '#2547ab',
+    badgeHex: '#2547ab',
+    asset: 'assets/skyrim-bar-magicka.svg',
+    radialCenter: '#2547AB',
+    radialEdge: '#130E82',
   },
   {
     id: 'health',
     label: 'Health',
-    preview: '#d64545',
-    badgeHex: '#c03030',
-    verticalStops: [
-      { offset: '0%', color: '#4a1212' },
-      { offset: '28%', color: '#b83838' },
-      { offset: '50%', color: '#f08080' },
-      { offset: '72%', color: '#b83838' },
-      { offset: '100%', color: '#4a1212' },
-    ],
-    horizontalStops: [
-      { offset: '0%', color: '#1a0505', opacity: 0.55 },
-      { offset: '50%', color: '#ffffff', opacity: 0.22 },
-      { offset: '100%', color: '#1a0505', opacity: 0.55 },
-    ],
+    preview: '#ff000e',
+    badgeHex: '#b60613',
+    asset: 'assets/skyrim-bar-health.svg',
+    radialCenter: '#FF000E',
+    radialEdge: '#741514',
   },
   {
     id: 'stamina',
     label: 'Stamina',
-    preview: '#4db83a',
-    badgeHex: '#3d9a2e',
-    verticalStops: [
-      { offset: '0%', color: '#1a3a12' },
-      { offset: '28%', color: '#3d9a2e' },
-      { offset: '50%', color: '#7ed66a' },
-      { offset: '72%', color: '#3d9a2e' },
-      { offset: '100%', color: '#1a3a12' },
-    ],
-    horizontalStops: [
-      { offset: '0%', color: '#0a1a05', opacity: 0.55 },
-      { offset: '50%', color: '#ffffff', opacity: 0.2 },
-      { offset: '100%', color: '#0a1a05', opacity: 0.55 },
-    ],
+    preview: '#3a7a57',
+    badgeHex: '#3a7a57',
+    asset: 'assets/skyrim-bar-stamina.svg',
+    radialCenter: '#3A7A57',
+    radialEdge: '#113D1C',
   },
 ];
 
@@ -106,4 +91,8 @@ export function getSkyrimBarColorOption(
     SKYRIM_BAR_COLOR_OPTIONS.find((o) => o.id === color) ??
     SKYRIM_BAR_COLOR_OPTIONS[1]
   );
+}
+
+export function skyrimBarPreviewCss(option: SkyrimBarColorOption): string {
+  return `radial-gradient(ellipse 100% 100% at 50% 50%, ${option.radialCenter}, ${option.radialEdge})`;
 }

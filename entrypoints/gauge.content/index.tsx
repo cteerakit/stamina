@@ -30,6 +30,9 @@ export default defineContentScript({
         if (initialConfig.kind === 'progressBar') {
           shadowHost.dataset.progressBarPosition = initialConfig.position;
         }
+        if (initialConfig.kind === 'skyrim') {
+          shadowHost.dataset.skyrimFramePosition = initialConfig.position;
+        }
         const def = getDisplayThemeDefinition(initialTheme);
         applyHostPin(
           shadowHost,

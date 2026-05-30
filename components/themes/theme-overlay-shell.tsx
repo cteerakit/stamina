@@ -68,12 +68,15 @@ export function ThemeOverlayShell({
     };
   }, []);
 
+  const isPaused = state.status === 'paused';
+
   return (
     <div
       ref={overlayRef}
       data-gauge-overlay=""
       data-display-theme={state.settings.displayTheme}
       data-phase={phaseTheme}
+      {...(isPaused ? { 'data-paused': '' } : {})}
       {...(usePalette ? { 'data-color-palette': palette } : {})}
     >
       {children}

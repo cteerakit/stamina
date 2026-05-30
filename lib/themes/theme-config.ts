@@ -7,10 +7,13 @@ import type { PomodoroSettings } from '@/lib/pomodoro/types';
 import { normalizeOverwatchLabel } from './overwatch-config';
 import { getStardewEnergyFillColors } from './stardew-energy-colors';
 import { getSkyrimBarColorOption, normalizeSkyrimBarColor } from './skyrim-colors';
+
 import type {
   DisplayTheme,
   ProgressBarPosition,
+  SkyrimFramePosition,
   ThemeConfig,
+  ThemeConfigByDisplay,
 } from './types';
 import { DISPLAY_THEMES } from './types';
 
@@ -44,12 +47,19 @@ export function normalizeProgressBarPosition(
   return value === 'bottom' ? 'bottom' : 'top';
 }
 
+export function normalizeSkyrimFramePosition(
+  value: unknown,
+): SkyrimFramePosition {
+  if (value === 'left' || value === 'right') return value;
+  return 'middle';
+}
+
 export function defaultThemeConfig(displayTheme: DisplayTheme): ThemeConfig {
   switch (displayTheme) {
     case 'progressBar':
       return { kind: 'progressBar', palette: 'classic', position: 'top' };
     case 'skyrim':
-      return { kind: 'skyrim', barColor: 'health' };
+      return { kind: 'skyrim', barColor: 'health', position: 'middle' };
     case 'minecraft':
       return { kind: 'minecraft' };
     case 'valorant':
@@ -97,7 +107,10 @@ export function normalizeThemeConfig(
       const barColor = normalizeSkyrimBarColor(
         (config as { barColor?: unknown }).barColor,
       );
-      return { kind: 'skyrim', barColor };
+      const position = normalizeSkyrimFramePosition(
+        (config as { position?: unknown }).position,
+      );
+      return { kind: 'skyrim', barColor, position };
     }
     if (kind === 'minecraft' && displayTheme === 'minecraft') {
       return { kind: 'minecraft' };
@@ -122,7 +135,7 @@ export function normalizeThemeConfig(
     case 'progressBar':
       return { kind: 'progressBar', palette, position };
     case 'skyrim':
-      return { kind: 'skyrim', barColor: 'health' };
+      return { kind: 'skyrim', barColor: 'health', position: 'middle' };
     case 'minecraft':
       return { kind: 'minecraft' };
     case 'valorant':
@@ -134,39 +147,85 @@ export function normalizeThemeConfig(
   }
 }
 
+function configMatchesDisplayTheme(
+  displayTheme: DisplayTheme,
+  config: ThemeConfig,
+): boolean {
+  return config.kind === displayTheme;
+}
+
+export function normalizeThemeConfigs(
+  displayTheme: DisplayTheme,
+  activeConfig: ThemeConfig,
+  raw?: ThemeConfigByDisplay,
+): ThemeConfigByDisplay {
+  const configs: ThemeConfigByDisplay = {};
+
+  if (raw && typeof raw === 'object') {
+    for (const theme of DISPLAY_THEMES) {
+      const entry = raw[theme];
+      if (entry) {
+        const normalized = normalizeThemeConfig(theme, entry);
+        if (configMatchesDisplayTheme(theme, normalized)) {
+          configs[theme] = normalized;
+        }
+      }
+    }
+  }
+
+  configs[displayTheme] = activeConfig;
+  return configs;
+}
+
+/** Restore cached options for a display theme, or defaults if never configured. */
 export function themeConfigForDisplay(
   displayTheme: DisplayTheme,
-  previous?: ThemeConfig,
+  themeConfigs?: ThemeConfigByDisplay,
 ): ThemeConfig {
-  const carriedPalette =
-    previous?.kind === 'progressBar' ? previous.palette : 'classic';
-  const carriedPosition =
-    previous?.kind === 'progressBar' ? previous.position : 'top';
-  const carriedSkyrimColor =
-    previous?.kind === 'skyrim' ? previous.barColor : 'health';
-  const carriedOverwatchLabel =
-    previous?.kind === 'overwatch'
-      ? previous.label
-      : normalizeOverwatchLabel(undefined);
-
-  switch (displayTheme) {
-    case 'progressBar':
-      return {
-        kind: 'progressBar',
-        palette: carriedPalette,
-        position: carriedPosition,
-      };
-    case 'skyrim':
-      return { kind: 'skyrim', barColor: carriedSkyrimColor };
-    case 'minecraft':
-      return { kind: 'minecraft' };
-    case 'valorant':
-      return { kind: 'valorant' };
-    case 'overwatch':
-      return { kind: 'overwatch', label: carriedOverwatchLabel };
-    case 'stardewValley':
-      return { kind: 'stardewValley' };
+  const cached = themeConfigs?.[displayTheme];
+  if (cached && configMatchesDisplayTheme(displayTheme, cached)) {
+    return normalizeThemeConfig(displayTheme, cached);
   }
+  return defaultThemeConfig(displayTheme);
+}
+
+export function switchDisplayTheme(
+  settings: PomodoroSettings,
+  displayTheme: DisplayTheme,
+): PomodoroSettings {
+  const themeConfigs = normalizeThemeConfigs(
+    settings.displayTheme,
+    settings.themeConfig,
+    settings.themeConfigs,
+  );
+  const themeConfig = themeConfigForDisplay(displayTheme, themeConfigs);
+
+  return {
+    ...settings,
+    displayTheme,
+    themeConfig,
+    themeConfigs: normalizeThemeConfigs(displayTheme, themeConfig, {
+      ...themeConfigs,
+      [displayTheme]: themeConfig,
+    }),
+  };
+}
+
+export function updateThemeConfig(
+  settings: PomodoroSettings,
+  themeConfig: ThemeConfig,
+): PomodoroSettings {
+  const displayTheme = settings.displayTheme;
+  const normalized = normalizeThemeConfig(displayTheme, themeConfig);
+
+  return {
+    ...settings,
+    themeConfig: normalized,
+    themeConfigs: normalizeThemeConfigs(displayTheme, normalized, {
+      ...settings.themeConfigs,
+      [displayTheme]: normalized,
+    }),
+  };
 }
 
 export function migrateLegacySettings(
@@ -183,16 +242,23 @@ export function migrateLegacySettings(
       raw.themeConfig,
       legacyPalette,
     );
-    return { displayTheme, themeConfig };
+    const themeConfigs = normalizeThemeConfigs(
+      displayTheme,
+      themeConfig,
+      raw.themeConfigs as ThemeConfigByDisplay | undefined,
+    );
+    return { displayTheme, themeConfig, themeConfigs };
   }
 
+  const themeConfig = {
+    kind: 'progressBar' as const,
+    palette: legacyPalette,
+    position: 'top' as const,
+  };
   return {
     displayTheme: 'progressBar',
-    themeConfig: {
-      kind: 'progressBar',
-      palette: legacyPalette,
-      position: 'top',
-    },
+    themeConfig,
+    themeConfigs: { progressBar: themeConfig },
   };
 }
 

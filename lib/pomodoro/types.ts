@@ -1,4 +1,8 @@
-import type { DisplayTheme, ThemeConfig } from '@/lib/themes/types';
+import type {
+  DisplayTheme,
+  ThemeConfig,
+  ThemeConfigByDisplay,
+} from '@/lib/themes/types';
 
 export type Phase = 'focus' | 'shortBreak' | 'longBreak';
 
@@ -11,6 +15,8 @@ export interface PomodoroSettings {
   sessionsUntilLongBreak: number;
   displayTheme: DisplayTheme;
   themeConfig: ThemeConfig;
+  /** Last-used options per display theme (restored when switching back). */
+  themeConfigs: ThemeConfigByDisplay;
   /** When true, page overlay stays visible while the timer is idle (stopped). */
   showOverlayWhenIdle: boolean;
 }

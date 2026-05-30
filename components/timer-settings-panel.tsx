@@ -86,15 +86,8 @@ export function TimerSettingsPanel({
             }
           />
         </Field>
-        <Field orientation="horizontal">
-          <input
-            id="show-overlay-idle"
-            type="checkbox"
-            className="size-4 shrink-0 rounded border border-input accent-primary"
-            checked={form.showOverlayWhenIdle}
-            onChange={(e) => onShowOverlayWhenIdleChange(e.target.checked)}
-          />
-          <div className="flex flex-col gap-1">
+        <Field orientation="horizontal" className="items-start gap-3">
+          <div className="flex min-w-0 flex-1 flex-col gap-1">
             <FieldLabel htmlFor="show-overlay-idle" className="font-normal">
               {COPY.loadout.showOverlayWhenIdle}
             </FieldLabel>
@@ -102,6 +95,13 @@ export function TimerSettingsPanel({
               {COPY.loadout.showOverlayWhenIdleHint}
             </FieldDescription>
           </div>
+          <input
+            id="show-overlay-idle"
+            type="checkbox"
+            className="mt-0.5 size-4 shrink-0 rounded border border-input accent-primary"
+            checked={form.showOverlayWhenIdle}
+            onChange={(e) => onShowOverlayWhenIdleChange(e.target.checked)}
+          />
         </Field>
         {hasError && (
           <FieldDescription className="text-destructive">

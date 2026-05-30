@@ -2,6 +2,7 @@ import {
   migrateLegacySettings,
   normalizeDisplayTheme,
   normalizeThemeConfig,
+  normalizeThemeConfigs,
 } from '@/lib/themes/theme-config';
 
 import { DEFAULT_SETTINGS } from './constants';
@@ -63,6 +64,11 @@ export function validateSettings(
     displayTheme,
     migrated.themeConfig,
   );
+  const themeConfigs = normalizeThemeConfigs(
+    displayTheme,
+    themeConfig,
+    migrated.themeConfigs as import('@/lib/themes/types').ThemeConfigByDisplay,
+  );
   const showOverlayWhenIdle = migrated.showOverlayWhenIdle === true;
 
   return {
@@ -72,6 +78,7 @@ export function validateSettings(
     sessionsUntilLongBreak: Math.round(sessionsUntilLongBreak),
     displayTheme,
     themeConfig,
+    themeConfigs,
     showOverlayWhenIdle,
   };
 }

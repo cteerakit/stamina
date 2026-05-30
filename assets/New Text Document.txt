@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 50" width="100%" height="100%">
+  <defs>
+    <linearGradient id="redCylinderGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a080c" />
+      <stop offset="15%" stop-color="#5a181e" />
+      <stop offset="40%" stop-color="#a6434b" />
+      <stop offset="50%" stop-color="#df8b91" />
+      <stop offset="58%" stop-color="#c9303b" />
+      <stop offset="65%" stop-color="#b60613" />
+      <stop offset="85%" stop-color="#700107" />
+      <stop offset="100%" stop-color="#300002" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="800" height="50" fill="url(#redCylinderGrad)" />
+</svg>
