@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import { usePomodoroState } from '@/hooks/use-pomodoro-state';
+import { shouldShowPageOverlay } from '@/lib/pomodoro/overlay-visibility';
 import { applyHostPin, resolveHostPin } from '@/lib/themes/host-pin';
 import { getDisplayThemeDefinition } from '@/lib/themes/registry';
 
@@ -13,9 +14,17 @@ export default function GaugeApp() {
       ? state.settings.themeConfig.position
       : null;
 
+  const overlayVisible = state ? shouldShowPageOverlay(state) : false;
+
   useEffect(() => {
     const host = document.querySelector('stamina-gauge');
     if (!(host instanceof HTMLElement)) return;
+
+    if (overlayVisible) {
+      host.removeAttribute('data-overlay-hidden');
+    } else {
+      host.dataset.overlayHidden = '';
+    }
 
     host.dataset.displayTheme = displayTheme;
 
@@ -32,9 +41,14 @@ export default function GaugeApp() {
         ? resolveHostPin(def.hostPin, def.getHostPin, themeConfig)
         : def.hostPin;
     applyHostPin(host, pin);
-  }, [displayTheme, progressBarPosition, state?.settings.themeConfig]);
+  }, [
+    displayTheme,
+    progressBarPosition,
+    state?.settings.themeConfig,
+    overlayVisible,
+  ]);
 
-  if (loading || !state) {
+  if (loading || !state || !overlayVisible) {
     return null;
   }
 

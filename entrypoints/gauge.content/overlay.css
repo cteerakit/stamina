@@ -1,4 +1,8 @@
 /* Non-position host resets — layout comes from hostPin + data-display-theme rules */
+:host([data-overlay-hidden]) {
+  display: none !important;
+}
+
 :host {
   z-index: 2147483646 !important;
   pointer-events: none !important;

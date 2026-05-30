@@ -63,6 +63,7 @@ export function validateSettings(
     displayTheme,
     migrated.themeConfig,
   );
+  const showOverlayWhenIdle = migrated.showOverlayWhenIdle === true;
 
   return {
     focusMinutes: Math.round(focusMinutes),
@@ -71,6 +72,7 @@ export function validateSettings(
     sessionsUntilLongBreak: Math.round(sessionsUntilLongBreak),
     displayTheme,
     themeConfig,
+    showOverlayWhenIdle,
   };
 }
 

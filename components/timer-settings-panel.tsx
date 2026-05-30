@@ -15,6 +15,7 @@ interface TimerSettingsPanelProps {
   saved: boolean;
   hasError: boolean;
   onUpdateField: (key: keyof PomodoroSettings, value: string) => void;
+  onShowOverlayWhenIdleChange: (value: boolean) => void;
   onSave: () => void | Promise<void>;
   onReset: () => void | Promise<void>;
 }
@@ -25,6 +26,7 @@ export function TimerSettingsPanel({
   saved,
   hasError,
   onUpdateField,
+  onShowOverlayWhenIdleChange,
   onSave,
   onReset,
 }: TimerSettingsPanelProps) {
@@ -83,6 +85,23 @@ export function TimerSettingsPanel({
               onUpdateField('sessionsUntilLongBreak', e.target.value)
             }
           />
+        </Field>
+        <Field orientation="horizontal">
+          <input
+            id="show-overlay-idle"
+            type="checkbox"
+            className="size-4 shrink-0 rounded border border-input accent-primary"
+            checked={form.showOverlayWhenIdle}
+            onChange={(e) => onShowOverlayWhenIdleChange(e.target.checked)}
+          />
+          <div className="flex flex-col gap-1">
+            <FieldLabel htmlFor="show-overlay-idle" className="font-normal">
+              {COPY.loadout.showOverlayWhenIdle}
+            </FieldLabel>
+            <FieldDescription>
+              {COPY.loadout.showOverlayWhenIdleHint}
+            </FieldDescription>
+          </div>
         </Field>
         {hasError && (
           <FieldDescription className="text-destructive">

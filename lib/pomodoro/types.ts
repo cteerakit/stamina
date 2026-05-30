@@ -11,6 +11,8 @@ export interface PomodoroSettings {
   sessionsUntilLongBreak: number;
   displayTheme: DisplayTheme;
   themeConfig: ThemeConfig;
+  /** When true, page overlay stays visible while the timer is idle (stopped). */
+  showOverlayWhenIdle: boolean;
 }
 
 export interface PomodoroStats {

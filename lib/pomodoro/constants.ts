@@ -12,4 +12,5 @@ export const DEFAULT_SETTINGS: PomodoroSettings = {
   sessionsUntilLongBreak: 4,
   displayTheme: 'progressBar',
   themeConfig: { kind: 'progressBar', palette: 'classic', position: 'top' },
+  showOverlayWhenIdle: false,
 };

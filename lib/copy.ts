@@ -61,6 +61,9 @@ export const COPY = {
     saved: 'Settings saved.',
     save: 'Save',
     resetDefaults: 'Reset to defaults',
+    showOverlayWhenIdle: 'Show overlay when timer is stopped',
+    showOverlayWhenIdleHint:
+      'When off, the on-page timer is hidden until you start, pause, or resume.',
   },
   notifications: {
     focusComplete: {

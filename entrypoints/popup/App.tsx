@@ -71,6 +71,9 @@ function App() {
             saved={settingsForm.saved}
             hasError={settingsForm.error === 'validation'}
             onUpdateField={settingsForm.updateField}
+            onShowOverlayWhenIdleChange={(showOverlayWhenIdle) =>
+              void settingsForm.applySettings({ showOverlayWhenIdle })
+            }
             onSave={settingsForm.saveTimerSettings}
             onReset={settingsForm.resetAllSettings}
           />
